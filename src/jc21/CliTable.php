@@ -401,7 +401,14 @@ class CliTable {
 
         $response = '';
 
-        $screenWidth = trim(exec("tput cols"));
+        // Get the screen width based on the operating system
+        $screenWidth = trim(exec(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'mode con | findstr Columns' : 'tput cols'));
+
+        // If the operating system is Windows, extract the numeric value from the command output
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            preg_match('/\d+/', $screenWidth, $matches);
+            $screenWidth = $matches[0];
+        }
 
         // Idea here is we're column the accumulated length of the data
         // Then adding the quantity of column lengths to accommodate for the extra characters
