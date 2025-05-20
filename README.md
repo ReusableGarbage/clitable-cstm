@@ -36,7 +36,7 @@ require 'vendor/autoload.php';
 See the tests folder for some examples, but basically here's how to use it:
 
 ```php
-use jc21\CliTable;
+use CliTablePhp\CliTable\CliTable;
 
 // $data used below is an array of rows with fields. See tests/data.php for an example.
 

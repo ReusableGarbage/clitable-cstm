@@ -1,11 +1,10 @@
 <?php
 
 // Default options test
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use jc21\CliTable;
-use jc21\CliTableManipulator;
+use CliTablePhp\CliTable\CliTable;
+use CliTablePhp\CliTable\CliTableManipulator;
 
 include('data.php');
 

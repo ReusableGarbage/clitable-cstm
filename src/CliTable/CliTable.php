@@ -10,18 +10,18 @@
 // +---------------------------------------------------------------+
 //
 
-namespace jc21;
+namespace CliTablePhp\CliTable;
 
 class CliTable {
 
     /**
      * Table Data
      *
-     * @var    object
+     * @var    array
      * @access protected
      *
      **/
-    protected $injectedData = null;
+    protected array $injectedData;
 
     /**
      * Table Item name
@@ -30,7 +30,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $itemName = 'Row';
+    protected string $itemName = 'Row';
 
     /**
      * Table fields
@@ -39,7 +39,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $fields = array();
+    protected array $fields;
 
     /**
      * Show column headers?
@@ -48,7 +48,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $showHeaders = true;
+    protected bool $showHeaders = true;
 
     /**
      * Use colors?
@@ -57,7 +57,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $useColors = true;
+    protected bool $useColors = true;
 
     /**
      * Center content?
@@ -66,7 +66,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $centerContent = true;
+    protected bool $centerContent = true;
 
     /**
      * Table Border Color
@@ -75,7 +75,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $tableColor = 'reset';
+    protected string $tableColor = 'reset';
 
     /**
      * Header Color
@@ -84,7 +84,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $headerColor = 'reset';
+    protected string $headerColor = 'reset';
 
     /**
      * Colors, will be populated after instantiation
@@ -93,7 +93,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $colors = array();
+    protected array $colors;
 
     /**
      * Border Characters
@@ -102,7 +102,7 @@ class CliTable {
      * @access protected
      *
      **/
-    protected $chars = array(
+    protected array $chars = array(
         'top'          => '═',
         'top-mid'      => '╤',
         'top-left'     => '╔',
@@ -125,10 +125,11 @@ class CliTable {
      * Constructor
      *
      * @access public
-     * @param  string $itemName
-     * @param  bool   $useColors
+     * @param string $itemName
+     * @param bool $useColors
+     * @param bool $centerContent
      */
-    public function __construct($itemName = 'Row', $useColors = true, $centerContent = false) {
+    public function __construct( string $itemName = 'Row', bool $useColors = true, bool $centerContent = false) {
         $this->setItemName($itemName);
         $this->setUseColors($useColors);
         $this->setCenterContent($centerContent);
@@ -140,11 +141,12 @@ class CliTable {
      * setUseColors
      *
      * @access public
-     * @param  bool  $bool
+     * @param bool $bool
      * @return void
      */
-    public function setUseColors($bool) {
-        $this->useColors = (bool) $bool;
+    public function setUseColors(bool $bool): void
+    {
+        $this->useColors = $bool;
     }
 
 
@@ -152,11 +154,12 @@ class CliTable {
      * setCenterContent
      *
      * @access public
-     * @param  bool  $bool
+     * @param bool $bool
      * @return void
      */
-    public function setCenterContent($bool) {
-        $this->centerContent = (bool) $bool;
+    public function setCenterContent(bool $bool): void
+    {
+        $this->centerContent = $bool;
     }
 
 
@@ -166,7 +169,8 @@ class CliTable {
      * @access public
      * @return bool
      */
-    public function getUseColors() {
+    public function getUseColors(): bool
+    {
         return $this->useColors;
     }
 
@@ -177,7 +181,8 @@ class CliTable {
      * @access public
      * @return bool
      */
-    public function getCenterContent() {
+    public function getCenterContent(): bool
+    {
         return $this->centerContent;
     }
 
@@ -186,10 +191,11 @@ class CliTable {
      * setTableColor
      *
      * @access public
-     * @param  string  $color
+     * @param string $color
      * @return void
      */
-    public function setTableColor($color) {
+    public function setTableColor(string $color): void
+    {
         $this->tableColor = $color;
     }
 
@@ -200,7 +206,8 @@ class CliTable {
      * @access public
      * @return string
      */
-    public function getTableColor() {
+    public function getTableColor(): string
+    {
         return $this->tableColor;
     }
 
@@ -209,10 +216,11 @@ class CliTable {
      * setChars
      *
      * @access public
-     * @param  array  $chars
+     * @param array $chars
      * @return void
      */
-    public function setChars($chars) {
+    public function setChars(array $chars): void
+    {
         $this->chars = $chars;
     }
 
@@ -221,10 +229,11 @@ class CliTable {
      * setHeaderColor
      *
      * @access public
-     * @param  string  $color
+     * @param string $color
      * @return void
      */
-    public function setHeaderColor($color) {
+    public function setHeaderColor(string $color): void
+    {
         $this->headerColor = $color;
     }
 
@@ -235,7 +244,8 @@ class CliTable {
      * @access public
      * @return string
      */
-    public function getHeaderColor() {
+    public function getHeaderColor(): string
+    {
         return $this->headerColor;
     }
 
@@ -244,10 +254,11 @@ class CliTable {
      * setItemName
      *
      * @access public
-     * @param  string  $name
+     * @param string $name
      * @return void
      */
-    public function setItemName($name) {
+    public function setItemName(string $name): void
+    {
         $this->itemName = $name;
     }
 
@@ -258,7 +269,8 @@ class CliTable {
      * @access public
      * @return string
      */
-    public function getItemName() {
+    public function getItemName(): string
+    {
         return $this->itemName;
     }
 
@@ -267,10 +279,11 @@ class CliTable {
      * injectData
      *
      * @access public
-     * @param  array  $data
+     * @param array $data
      * @return void
      */
-    public function injectData($data) {
+    public function injectData(array $data): void
+    {
         $this->injectedData = $data;
     }
 
@@ -279,10 +292,11 @@ class CliTable {
      * setShowHeaders
      *
      * @access public
-     * @param  bool  $bool
+     * @param bool $bool
      * @return void
      */
-    public function setShowHeaders($bool) {
+    public function setShowHeaders(bool $bool): void
+    {
         $this->showHeaders = $bool;
     }
 
@@ -293,7 +307,8 @@ class CliTable {
      * @access public
      * @return bool
      */
-    public function getShowHeaders() {
+    public function getShowHeaders(): bool
+    {
         return $this->showHeaders;
     }
 
@@ -304,7 +319,8 @@ class CliTable {
      * @access protected
      * @return string
      */
-    protected function getPluralItemName() {
+    protected function getPluralItemName(): string
+    {
         if (count($this->injectedData) == 1) {
             return $this->getItemName();
         } else {
@@ -324,13 +340,14 @@ class CliTable {
      * addField
      *
      * @access public
-     * @param  string      $fieldName
-     * @param  string      $fieldKey
-     * @param  bool|object $manipulator
-     * @param  string      $color
+     * @param string $fieldName
+     * @param string $fieldKey
+     * @param object|bool $manipulator
+     * @param string $color
      * @return void
      */
-    public function addField($fieldName, $fieldKey, $manipulator = false, $color = 'reset') {
+    public function addField(string $fieldName, string $fieldKey, object|bool $manipulator = false, string $color = 'reset'): void
+    {
         $this->fields[$fieldKey] = array(
             'name'        => $fieldName,
             'key'         => $fieldKey,
@@ -346,7 +363,8 @@ class CliTable {
      * @access public
      * @return string
      */
-    public function get() {
+    public function get(): string
+    {
         $rowCount      = 0;
         $columnLengths = array();
         $headerData    = array();
@@ -426,7 +444,7 @@ class CliTable {
         $response .= $spacing . $this->getTableTop($columnLengths);
         if ($this->getShowHeaders()) {
             $response .= $spacing . $this->getFormattedRow($headerData, $columnLengths, true);
-            $response .= $spacing . $this->getTableSeperator($columnLengths);
+            $response .= $spacing . $this->getTableSeparator($columnLengths);
         }
 
         foreach ($cellData as $row) {
@@ -443,12 +461,13 @@ class CliTable {
      * getFormattedRow
      *
      * @access protected
-     * @param  array   $rowData
-     * @param  array   $columnLengths
-     * @param  bool    $header
+     * @param array $rowData
+     * @param array $columnLengths
+     * @param bool $header
      * @return string
      */
-    protected function getFormattedRow($rowData, $columnLengths, $header = false) {
+    protected function getFormattedRow(array $rowData, array $columnLengths, bool $header = false): string
+    {
         $response = '';
 
         $splitLines = [];
@@ -468,7 +487,7 @@ class CliTable {
                     $color = $this->fields[$key]['color'];
                 }
 
-                $line = isset($lines[$i]) ? $lines[$i] : '';
+                $line = $lines[$i] ?? '';
 
                 $c = chr(27);
                 $lineLength = mb_strwidth(preg_replace("/({$c}\[(.*?)m)/", '', $line)) + 1;
@@ -491,17 +510,17 @@ class CliTable {
      * getTableTop
      *
      * @access protected
-     * @param  array   $columnLengths
+     * @param array $columnLengths
      * @return string
      */
-    protected function getTableTop($columnLengths) {
+    protected function getTableTop(array $columnLengths): string
+    {
         $response = $this->getChar('top-left');
         foreach ($columnLengths as $length) {
             $response .= $this->getChar('top', $length + 2);
             $response .= $this->getChar('top-mid');
         }
-        $response = substr($response, 0, strlen($response) - 3) . $this->getChar('top-right') . PHP_EOL;
-        return $response;
+        return substr($response, 0, strlen($response) - 3) . $this->getChar('top-right') . PHP_EOL;
     }
 
 
@@ -509,35 +528,35 @@ class CliTable {
      * getTableBottom
      *
      * @access protected
-     * @param  array   $columnLengths
+     * @param array $columnLengths
      * @return string
      */
-    protected function getTableBottom($columnLengths) {
+    protected function getTableBottom(array $columnLengths): string
+    {
         $response = $this->getChar('bottom-left');
         foreach ($columnLengths as $length) {
             $response .= $this->getChar('bottom', $length + 2);
             $response .= $this->getChar('bottom-mid');
         }
-        $response = substr($response, 0, strlen($response) - 3) . $this->getChar('bottom-right') . PHP_EOL;
-        return $response;
+        return substr($response, 0, strlen($response) - 3) . $this->getChar('bottom-right') . PHP_EOL;
     }
 
 
     /**
-     * getTableSeperator
+     * getTableSeparator
      *
      * @access protected
-     * @param  array   $columnLengths
+     * @param array $columnLengths
      * @return string
      */
-    protected function getTableSeperator($columnLengths) {
+    protected function getTableSeparator(array $columnLengths): string
+    {
         $response = $this->getChar('left-mid');
         foreach ($columnLengths as $length) {
             $response .= $this->getChar('mid', $length + 2);
             $response .= $this->getChar('mid-mid');
         }
-        $response = substr($response, 0, strlen($response) - 3) . $this->getChar('right-mid') . PHP_EOL;
-        return $response;
+        return substr($response, 0, strlen($response) - 3) . $this->getChar('right-mid') . PHP_EOL;
     }
 
 
@@ -545,20 +564,21 @@ class CliTable {
      * getChar
      *
      * @access protected
-     * @param  string  $type
-     * @param  int     $length
+     * @param string $type
+     * @param int $length
      * @return string
      */
-    protected function getChar($type, $length = 1) {
+    protected function getChar(string $type, int $length = 1): string
+    {
         $response = '';
-        if (isset($this->chars[$type])) {
-            if ($this->getUseColors()) {
+        if (isset($this->chars[$type]))
+        {
+            if ($this->getUseColors())
+            {
                 $response .= $this->getColorFromName($this->getTableColor());
             }
             $char = trim($this->chars[$type]);
-            for ($x = 0; $x < $length; $x++) {
-                $response .= $char;
-            }
+            $response = str_repeat($char, $length);
         }
         return $response;
     }
@@ -570,7 +590,7 @@ class CliTable {
      * @access protected
      * @return void
      */
-    protected function defineColors()
+    protected function defineColors(): void
     {
         $this->colors = array(
             'blue'    => chr(27).'[1;34m',
@@ -591,10 +611,10 @@ class CliTable {
      * getColorFromName
      *
      * @access protected
-     * @param  string  $colorName
+     * @param string $colorName
      * @return string
      */
-    protected function getColorFromName($colorName)
+    protected function getColorFromName(string $colorName): string
     {
         if (isset($this->colors[$colorName])) {
             return $this->colors[$colorName];
@@ -609,7 +629,8 @@ class CliTable {
      * @access public
      * @return void
      */
-    public function display() {
+    public function display(): void
+    {
         print $this->get();
     }
 
