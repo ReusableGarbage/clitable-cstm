@@ -1,13 +1,17 @@
 {
-    "name": "jc21/clitable",
+    "name": "reusablegarbage/clitable-cstm",
     "description": "CLI Table output for PHP scripts",
     "keywords": ["cli", "table", "command", "line"],
-    "homepage": "https://github.com/jc21/clitable",
+    "homepage": "https://github.com/ReusableGarbage/clitable-cstm/",
     "license": "BSD-1-Clause",
     "authors": [
         {
             "name": "Jamie Curnow",
             "email": "jc@jc21.com"
+        },
+        {
+            "name": "Reusable Garbage",
+            "role": "Maintainer"
         }
     ],
     "minimum-stability": "dev",
@@ -18,8 +22,8 @@
         "victorjonsson/markdowndocs": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "jc21": "src"
+        "psr-4": {
+            "ReusableGarbage\\ClitableCstm\\": "src/"
         }
     }
 }
